@@ -10,9 +10,9 @@ public class HomeController {
     return "home";
   }
 
-  @GetMapping("/chat-string")
+  @GetMapping("/chat-text")
   public String chatModel() {
-    return "chat-string";
+    return "chat-text";
   }
 
   @GetMapping("/chat-stream")

@@ -6,29 +6,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.adacho.chat_model.service.AiService;
+import com.adacho.chat_model.service.AiServiceByChatClient;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 
 @RestController
 @RequestMapping("/springai")
 @Slf4j
+@RequiredArgsConstructor
 public class AiController {
-  private final AiService aiService;
+  // private final AiService aiService;
 
-  public AiController(AiService aiService) {
-    this.aiService = aiService;
-  }
-
-  // private final AiServiceByChatClient aiService;
-
-  // public AiController(AiServiceByChatClient aiService) {
-  // this.aiService = aiService;
-  // }
+  private final AiServiceByChatClient aiService;
 
   // ##### 요청 매핑 메소드 #####
-  @PostMapping(value = "/chat-string", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
+  @PostMapping(value = "/chat-text", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
   public String chatModel(@RequestParam String question) {
     String answerText = aiService.generateText(question);
     return answerText;
