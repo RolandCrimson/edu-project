@@ -16,7 +16,7 @@ import reactor.core.publisher.Flux;
 @RequestMapping("/springai")
 @Slf4j
 @RequiredArgsConstructor
-public class UserControllerDefaultMethod {
+public class DefaultMethodController {
 
     private final DefaultMethodService defaultService;
 

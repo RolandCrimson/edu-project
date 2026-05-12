@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/springai")
 @Slf4j
 @RequiredArgsConstructor
-public class UserControllerMultiMessages {
+public class MultiMessagesController {
     // ##### 필드 #####
     private final MultiMessagesService messageService;
 

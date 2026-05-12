@@ -13,10 +13,10 @@
   <script src="/js/springai.js"></script>
   <script>
     // ##### 제출 버튼을 클릭했을 때 실행하는 함수 #####
-    async function handleSubmit() {
+    async function submitQuestion() {
       try {
         // 텍스트 질문을 얻고 대화 패널에 추가하기
-        const question = document.getElementById("question").value;
+        const question = document.querySelector("#question").value;
         if (question === "") return;
         springai.addUserQuestion(question, "chatPanel");
 
@@ -24,18 +24,18 @@
         springai.setSpinner("spinner", true);
 
         // AJAX 요청하고 응답받기
-        const response = await fetch('/ai/chain-of-thought', {
+        const response = await fetch('/springai/chain-of-thought', {
           method: "post",
-					headers: {
-						'Content-Type': 'application/x-www-form-urlencoded',
-						'Accept': 'application/x-ndjson'
-					},
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/x-ndjson'
+          },
           body: new URLSearchParams({ question })
         });
 
         // AI 모델 답변이 들어갈 위치를 대화 패널에 추가
         const uuid = springai.addAnswerPlaceHolder("chatPanel");
-        
+
         // 텍스트 답변 출력하기
         springai.printAnswerText(response.body, uuid, "chatPanel");
       } catch (error) {
@@ -52,7 +52,7 @@
   <div class="d-flex flex-column vh-100">
     <div id="headPanel" class="navbar justify-content-between">
       <a href="/" class="navbar-brand ps-2">
-        <img src="/image/spring_ai_logo_with_text.svg" width="200" />
+        <img src="/image/spring_ai_logo.svg" width="200" />
       </a>
       <div id="spinner" class="spinner-border text-success d-none me-3" role="status">
         <span class="visually-hidden">Loading...</span>
@@ -73,9 +73,10 @@
     <div id="inputPanel" class="bg-secondary-subtle">
       <div class="input-group p-2">
         <span class="input-group-text">질문</span>
-        <textarea id="question" class="form-control">제가 3살일 때, 제 파트너는 제 나이의 3배였어요. 지금 저는 20살인데, 제 파트너는 몇 살일까요?</textarea>
+        <textarea id="question"
+          class="form-control">20000원을 가지고 시장에 갔습니다. 1000원짜리 사과 5개와 500짜리 오렌지 7개를 사면 남은 금액이 얼마일까요?</textarea>
         <span class="input-group-text">
-          <button type="button" class="btn btn-primary" onclick="handleSubmit()">제출</button>
+          <button type="button" class="btn btn-primary" onclick="submitQuestion()">제출</button>
         </span>
       </div>
     </div>

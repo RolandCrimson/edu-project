@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/springai")
 @Slf4j
 @RequiredArgsConstructor
-public class UserControllerFewShotPrompt {
+public class FewShotPromptController {
     private final FewShotPromptService fewShotService;
 
     @PostMapping(value = "/few-shot-prompt", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

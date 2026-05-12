@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/springai")
 @Slf4j
 @RequiredArgsConstructor
-public class UserControllerZeroShotPrompt {
+public class ZeroShotPromptController {
     private final ZeroShotPromptService zeroShotService;
 
     @PostMapping(value = "/zero-shot-prompt", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)

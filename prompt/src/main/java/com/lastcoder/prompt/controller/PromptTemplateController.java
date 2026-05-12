@@ -15,7 +15,7 @@ import reactor.core.publisher.Flux;
 @RestController
 @RequestMapping("/springai")
 @Slf4j
-public class UserControllerPromptTemplate {
+public class PromptTemplateController {
     // ##### 필드 #####
     @Autowired
     private PromptTemplateService promptService;
