@@ -1,6 +1,5 @@
 package com.lastcoder.prompt.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +17,11 @@ import reactor.core.publisher.Flux;
 @Slf4j
 @RequiredArgsConstructor
 public class RoleAssignmentPromptController {
-    private final RoleAssignmentPromptService roleService;
+  private final RoleAssignmentPromptService roleService;
 
-    @PostMapping(value = "/role-assignment", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_NDJSON_VALUE)
-    public Flux<String> roleAssignment(@RequestParam String requirements) {
-        Flux<String> travelPlan = roleService.roleAssignment(requirements);
-        return travelPlan;
-    }
+  @PostMapping(value = "/role-assignment", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_NDJSON_VALUE)
+  public Flux<String> roleAssignment(@RequestParam String requirements) {
+    Flux<String> travelPlan = roleService.roleAssignment(requirements);
+    return travelPlan;
+  }
 }
