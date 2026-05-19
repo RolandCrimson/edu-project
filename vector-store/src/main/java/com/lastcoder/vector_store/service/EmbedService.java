@@ -51,8 +51,9 @@ public class EmbedService {
         new Document("곶자왈은 제주의 용암지대에 만들어진 특이한 숲이다.", Map.of("location", "제주도", "type", "숲")),
         new Document("흥겨운 체험과 풍류로 가득한 전통문화 테마파크 한국민속촌", Map.of("location", "용인", "type", "테마공원")),
         new Document("문경 레일바이크는 국내 최초로 철로를 달리는 레일 바이크이다.", Map.of("location", "문경", "type", "액티비티")),
-        new Document("경주월드 어뮤즈먼트는 국내 최고 수준의 스릴 넘치는 어트랙션을 자랑하는 대형 테마파크", Map.of("location", "경주", "type", "액티비티")),
-        new Document("서귀포시 안덕면에 자리한 피규어뮤지엄은 국내외 유명한 캐릭터의 피규어를 한자리에서 볼수 있는 국내 최댁 규모의 피규어 박물관이다.",
+        new Document("서울 잠실에 있는 롯데월드는 가족과 함께 즐길 수 있는 도심 놀이공원이다.",
+            Map.of("location", "서울", "type", "액티비티")),
+        new Document("제주도 서귀포시 안덕면에 자리한 피규어뮤지엄은 국내외 유명한 캐릭터의 피규어를 한자리에서 볼수 있는 국내 최댁 규모의 피규어 박물관이다.",
             Map.of("location", "제주도", "type", "테마공원")));
 
     // 벡터 저장소에 저장
@@ -60,7 +61,13 @@ public class EmbedService {
   }
 
   public List<Document> searchDocumentByText(String question) {
-    List<Document> documents = vectorStore.similaritySearch(question);
+    // List<Document> documents = vectorStore.similaritySearch(question); // default
+    // 4개
+    List<Document> documents = vectorStore.similaritySearch(
+        SearchRequest.builder()
+            .query(question)
+            .topK(3)
+            .build());
     return documents;
   }
 
@@ -70,7 +77,7 @@ public class EmbedService {
             .query(question)
             .topK(1)
             .similarityThreshold(0.3)
-            .filterExpression("location == '제주' && type == '숲'")
+            .filterExpression("location == '제주도' && type == '숲'")
             .build());
     return documents;
   }

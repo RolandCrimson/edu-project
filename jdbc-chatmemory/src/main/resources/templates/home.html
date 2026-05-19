@@ -23,22 +23,22 @@
         springai.setSpinner("spinner", true);
 
         // AJAX 요청하고 응답받기
-        const response = await fetch('/springai/search-document-text', {
+        const response = await fetch('/springai/chat', {
           method: "post",
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Accept': 'text/plain'
-          },
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded',
+						'Accept': 'text/plain' //라인으로 구분된 청크 데이터
+					},					
           body: new URLSearchParams({ question })
         });
 
         // AI 모델 답변이 들어갈 위치를 대화 패널에 추가
         const uuid = springai.addAnswerPlaceHolder("chatPanel");
-
+        
         // 텍스트 답변 출력하기
         springai.printAnswerText(response.body, uuid, "chatPanel");
       } catch (error) {
-        console.log(error);
+        console.log(error)
       } finally {
         //스피너 숨기기
         springai.setSpinner("spinner", false);
@@ -72,7 +72,7 @@
     <div id="inputPanel" class="bg-secondary-subtle">
       <div class="input-group p-2">
         <span class="input-group-text">질문</span>
-        <input id="question" type="text" class="form-control" value="제주도의 관광지를 알려줘">
+        <textarea id="question" class="form-control">지금부터 너는 나의 비서 지니야</textarea>
         <span class="input-group-text">
           <button type="button" class="btn btn-primary" onclick="submitQuestion()">제출</button>
         </span>

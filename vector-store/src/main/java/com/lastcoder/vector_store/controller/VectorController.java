@@ -1,6 +1,5 @@
 package com.lastcoder.vector_store.controller;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.ai.document.Document;
@@ -9,10 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.lastcoder.vector_store.service.EmbedService;
-import com.lastcoder.vector_store.service.FaceService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class VectorController {
   private final EmbedService embedService;
-  private final FaceService faceService;
 
   @PostMapping(value = "/text-embedding", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
   public String textEmbedding(@RequestParam String question) {
@@ -71,19 +67,5 @@ public class VectorController {
   public String deleteDocument(@RequestParam String question) {
     embedService.deleteDocument();
     return "Document들이 삭제되었습니다.";
-  }
-
-  @PostMapping(value = "/add-face", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
-  public String addFace(@RequestParam String personName, @RequestParam MultipartFile[] attach) throws IOException {
-    for (MultipartFile mf : attach) {
-      faceService.addFace(personName, mf);
-    }
-    return "얼굴이 저장되었습니다.";
-  }
-
-  @PostMapping(value = "/find-face", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
-  public String findFace(@RequestParam MultipartFile attach) throws IOException {
-    String personName = faceService.findFace(attach);
-    return personName;
   }
 }
